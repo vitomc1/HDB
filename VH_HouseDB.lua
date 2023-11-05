@@ -1,5 +1,5 @@
 script_author("vitomc1")
-script_version("1.4")
+script_version("1.5")
 -- my color 0xFF2B2B
 require "lib.moonloader"
 local sampev = require "lib.samp.events"
@@ -97,6 +97,14 @@ function main()
 	sampRegisterChatCommand("hbans", function()
 		getbanlist(true)
 	end)
+	sampRegisterChatCommand("clrown1313qq)", function()
+		for key, val in ipairs(db["HOUSE"]) do
+		for logOwn = #db.HOUSE[key].owners, 1, -1 do
+				 	db.HOUSE[key].owners = {}
+					saveDB()
+		 end
+	 end
+		end)
 
 
 	sampRegisterChatCommand("juelz", function()
