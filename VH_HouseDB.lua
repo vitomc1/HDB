@@ -1,5 +1,5 @@
 script_author("vitomc1")
-script_version("1.3")
+script_version("1.4")
 -- my color 0xFF2B2B
 require "lib.moonloader"
 local sampev = require "lib.samp.events"
@@ -666,6 +666,7 @@ function imgui.GetDate(abs)
 
 	if imgui.IsItemClicked() then
 		setClipboardText(u8(db.HOUSE[abs].num))
+		sampSendChat("/gps h "..db.HOUSE[abs].num)
 	end
 
 	imgui.NextColumn()
@@ -926,11 +927,7 @@ function sampev.onSetObjectMaterialText(id, data)
 					["num"] = num,
 					["park"] = park,
 					["lastowner"] = owner,
-					["owners"] = {
-						owner = owner,
-						data = os.date("%d.%m.20%y"),
-						time = os.date("%H:%M:%S")
-					}
+					["owners"] = {}
 				})
 				if not ownersOnlineList(owner) then
 				table.insert(db["ownersOnlineLOGG"], {
@@ -1026,7 +1023,7 @@ function sampev.onSetObjectMaterialText(id, data)
 
 					if tostring(data.text):find("^%d+  %d+.*\n\n{ffffff}Владелец:{fbec5d} .*\n\n{ffffff}Владелец продает.*") then
 						local crdFlat, crdFalatX, crdFalatY, crdFalatZ = getObjectCoordinates(sampGetObjectHandleBySampId(id))
-		 			 local selnum, selpark, selowner = tostring(data.text):match("^(%d+)  (%d+)\n\n{ffffff}Владелец:{fbec5d} (%S+)")
+		 			 local selnum, selpark, selowner = tostring(data.text):match("^(%d+)  (%d+).*\n\n{ffffff}Владелец:{fbec5d} (%S+)")
 		 			 local datas = os.date("%d.%m.20%y")
 		 			 local times = os.date("%H:%M:%S")
 		 			 if not SellHouse(selnum) then
