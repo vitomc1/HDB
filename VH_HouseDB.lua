@@ -1,5 +1,5 @@
 script_author("vitomc1")
-script_version("1.5")
+script_version("1.6")
 -- my color 0xFF2B2B
 require "lib.moonloader"
 local sampev = require "lib.samp.events"
@@ -97,15 +97,16 @@ function main()
 	sampRegisterChatCommand("hbans", function()
 		getbanlist(true)
 	end)
+
 	sampRegisterChatCommand("clrown1313qq)", function()
 		for key, val in ipairs(db["HOUSE"]) do
-		for logOwn = #db.HOUSE[key].owners, 1, -1 do
-				 	db.HOUSE[key].owners = {}
-					saveDB()
-		 end
+		 if db.HOUSE[key].area == "Rodeo" or db.HOUSE[key].area == "Не найдено" then
+			 sampAddChatMessage(db.HOUSE[key].lastowner.." "..db.HOUSE[key].num.." Дома с районом "..db.HOUSE[key].area.." clearning owners", -1)
+				 db.HOUSE[key].owners = {}
+				 saveDB()
+		end
 	 end
 		end)
-
 
 	sampRegisterChatCommand("juelz", function()
 		sampAddChatMessage("[HDB] {FFFFFF}Слет таблички: {FBEC5D}№222 1.{FFFFFF} Владелец: {FBEC5D}Nick_Stallone.", 0xFF2B2B)
